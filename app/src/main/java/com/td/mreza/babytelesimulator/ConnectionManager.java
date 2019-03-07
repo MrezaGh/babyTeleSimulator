@@ -25,7 +25,6 @@ public class ConnectionManager {
                     e.printStackTrace();
                 }
                 Log.i("CurrentThread: ", Thread.currentThread().getName());
-                Log.i("numbers: ", Arrays.toString(numbers));
             }
         };
 

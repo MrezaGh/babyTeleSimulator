@@ -23,8 +23,9 @@ public class MainActivity extends AppCompatActivity {
 
 //        messageController.fetch(false, 0);
 //        messageController.fetch(false, 10);
+//        messageController.fetch(false, 20);
 
-        messageController.fetch(false, 10);
+//        messageController.fetch(true, 0);
 
         Button clearBtn = findViewById(R.id.clear_btn);//done!
         Button refreshBtn = findViewById(R.id.refresh_btn);//todo:
