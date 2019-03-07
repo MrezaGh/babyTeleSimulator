@@ -62,7 +62,7 @@ public class StorageManager {
 
     }
 
-    public int[] load(){
+    public int[] load(final int lastNumber){
         final int[] numbers = new int[10];
         final CountDownLatch latch = new CountDownLatch(1);
         Runnable runnable = new Runnable() {
@@ -77,12 +77,13 @@ public class StorageManager {
 //                    Log.i("files -> ", "data: " + lineData);
                     bufferedReader.close();
                     if (lineData != null){
-                        int lastNumber = Integer.parseInt(lineData);
+                        int lastSavedNumber = Integer.parseInt(lineData);
+                        if (lastNumber < lastSavedNumber)
                         for (int i = 0; i < 10; i++) {
                             numbers[i] = i + lastNumber + 1;
                         }
                     }
-                    else {
+                    else if (lastNumber == 0){
                         for (int i = 0; i < 10; i++) {
                             numbers[i] = i + 1;
                         }
@@ -108,7 +109,8 @@ public class StorageManager {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        if (numbers[0] == 0)//if nothing needs to return numbers is {0,0,...}
+            return null;
         return numbers;
     }
 

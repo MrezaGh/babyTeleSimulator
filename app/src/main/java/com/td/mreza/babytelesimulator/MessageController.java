@@ -27,7 +27,7 @@ public class MessageController {
             public void run() {
                 if (fromCache){
                     //todo : review and refactor
-                    int[] numbers = storageManager.load();
+                    int[] numbers = storageManager.load(lastNumber);
                     //notificationCenter.data_loaded(numbers);// todo: this line should be added after
                     // Notification Center implementation is done
                     Log.i("numbers: ", Arrays.toString(numbers));
