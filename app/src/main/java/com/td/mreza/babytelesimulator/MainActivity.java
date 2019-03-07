@@ -89,9 +89,6 @@ public class MainActivity extends AppCompatActivity implements Observer  {
 
     private void updateList() {
         List<Integer> list =messageController.cache;
-        if(list != null) {
-
-        }
         ArrayList<TextView> tvs = new ArrayList<>();
         for (Integer s:list) {
             TextView tv=new TextView(getApplicationContext());
@@ -100,7 +97,13 @@ public class MainActivity extends AppCompatActivity implements Observer  {
 
         }
         Log.i("Threadd", Thread.currentThread().getName());
-        for (TextView t: tvs) {
+        ArrayList<TextView> tvsNew = new ArrayList<>();
+        for (int i = 0; i <tvs.size() ; i++) {
+            if(i>tvs.size()-11) {
+                tvsNew.add(tvs.get(i));
+            }
+        }
+        for (TextView t: tvsNew) {
             linearLayout.addView(t);
         }
     }
