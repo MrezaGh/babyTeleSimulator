@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.concurrent.CountDownLatch;
 
 public class MessageController {
     public ArrayList<Integer> cache;
@@ -18,16 +20,31 @@ public class MessageController {
         this.storageManager = new StorageManager(context);
 
     }
-    public void fetch(Boolean fromCache){
-        if (fromCache){
-            //storage manager
-            storageManager.load();
+    public void fetch(final Boolean fromCache, final int lastNumber){
+        final CountDownLatch latch = new CountDownLatch(1);
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (fromCache){
+                    //todo : review and refactor
+                    int[] numbers = storageManager.load();
+                    //notificationCenter.data_loaded(numbers);// todo: this line should be added after
+                    // Notification Center implementation is done
+                    Log.i("numbers: ", Arrays.toString(numbers));
+                }
+                else {
+                    //todo : review code and refactor
+                    int[] numbers = connectionManager.load(lastNumber);
+                    boolean saved = storageManager.save(lastNumber + 10);
+                    //notificationCenter.data_loaded(numbers);// todo: this line should be added after
+                    // Notification Center implementation is done
+                }
 
-        }
-        else {
-            //todo : review code and refactor
-            int[] numbers = connectionManager.load(0);
-            int[] numbers2 = connectionManager.load(10);
-        }
+            }
+        };
+        Thread fetchThread = new Thread(runnable, "MessageController Fetch thread");
+        fetchThread.start();
+
+
     }
 }

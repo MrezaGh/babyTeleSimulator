@@ -13,6 +13,7 @@ public class ConnectionManager {
     public int[] load(final int lastPreviousNum){
         final int[] numbers = new int[10];
         final CountDownLatch latch = new CountDownLatch(1);
+
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -23,11 +24,12 @@ public class ConnectionManager {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Log.i("cloud thread ->", String.valueOf(Thread.currentThread().getId()));
+                Log.i("CurrentThread: ", Thread.currentThread().getName());
                 Log.i("numbers: ", Arrays.toString(numbers));
             }
         };
-        Thread cloud = new Thread(runnable);
+
+        Thread cloud = new Thread(runnable, "cloud thread");
         cloud.start();
         try {
             latch.await();

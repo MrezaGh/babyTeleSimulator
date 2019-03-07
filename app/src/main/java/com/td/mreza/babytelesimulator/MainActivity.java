@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 //todo : classes should be singleton
 
@@ -19,12 +20,17 @@ public class MainActivity extends AppCompatActivity {
 
         MessageController messageController = new MessageController(getBaseContext());
 
-        messageController.fetch(true);
+
+//        messageController.fetch(false, 0);
+//        messageController.fetch(false, 10);
+
+        messageController.fetch(false, 10);
 
         Button clearBtn = findViewById(R.id.clear_btn);//done!
         Button refreshBtn = findViewById(R.id.refresh_btn);//todo:
         Button getBtn = findViewById(R.id.get_btn);//todo
         final LinearLayout linearLayout = findViewById(R.id.linear_layout);
+
 
 
         clearBtn.setOnClickListener(new View.OnClickListener() {
