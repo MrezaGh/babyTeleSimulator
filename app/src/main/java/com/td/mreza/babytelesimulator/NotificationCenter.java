@@ -29,6 +29,7 @@ public class NotificationCenter implements Subject {
 
     @Override
     public void notifyObservers() {
+
         List<Observer> observersLocal = null;
         //synchronization is used to make sure any observer registered after list is received is not notified
         synchronized (MUTEX) {

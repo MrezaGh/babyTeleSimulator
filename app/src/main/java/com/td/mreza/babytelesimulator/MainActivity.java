@@ -28,19 +28,37 @@ public class MainActivity extends AppCompatActivity implements Observer  {
         linearLayout = findViewById(R.id.linear_layout);
         notificationCenter.register(this);
 
-        messageController.fetch(false, 0);
+//        messageController.fetch(false, 0);
         
 
-//        messageController.fetch(false, 10);
-//        messageController.fetch(false, 20);
-
-//        messageController.fetch(true, 0);
 
         Button clearBtn = findViewById(R.id.clear_btn);//done!
         Button refreshBtn = findViewById(R.id.refresh_btn);//todo:
         Button getBtn = findViewById(R.id.get_btn);//todo
 
+        getBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int lastNUmber;
+                if (messageController.cache.size() == 0)
+                    lastNUmber = 0;
+                else
+                    lastNUmber = messageController.cache.get(messageController.cache.size() - 1);
+                messageController.fetch(false, lastNUmber);
+            }
+        });
 
+        refreshBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int lastNUmber;
+                if (messageController.cache.size() == 0)
+                    lastNUmber = 0;
+                else
+                    lastNUmber = messageController.cache.get(messageController.cache.size() - 1);
+                messageController.fetch(true, lastNUmber);
+            }
+        });
 
 
         clearBtn.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +77,17 @@ public class MainActivity extends AppCompatActivity implements Observer  {
     @Override
     public void update() {
 
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                MainActivity.this.updateList();
+            }
+        });
+
+
+    }
+
+    private void updateList() {
         List<Integer> list =messageController.cache;
         if(list != null) {
 
@@ -70,11 +99,10 @@ public class MainActivity extends AppCompatActivity implements Observer  {
             tvs.add(tv);
 
         }
+        Log.i("Threadd", Thread.currentThread().getName());
         for (TextView t: tvs) {
             linearLayout.addView(t);
         }
-
-
     }
 
     @Override
