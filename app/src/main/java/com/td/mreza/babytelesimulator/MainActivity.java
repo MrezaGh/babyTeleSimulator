@@ -18,11 +18,16 @@ public class MainActivity extends AppCompatActivity implements Observer  {
 
     LinearLayout linearLayout;
     MessageController messageController;
+    NotificationCenter notificationCenter;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        messageController = new MessageController(getBaseContext());
+//        setContentView(R.layout.activity_main);
+        setContentView(R.layout.mehrdad);
+        notificationCenter = new NotificationCenter();
+        messageController = new MessageController(getBaseContext(), notificationCenter);
         linearLayout = findViewById(R.id.linear_layout);
+        notificationCenter.register(this);
+
         messageController.fetch(false, 0);
         
 
@@ -54,14 +59,14 @@ public class MainActivity extends AppCompatActivity implements Observer  {
     @Override
     public void update() {
 
-        List<Integer> list =messageController.cache; ;
+        List<Integer> list =messageController.cache;
         if(list != null) {
 
         }
         ArrayList<TextView> tvs = new ArrayList<>();
         for (Integer s:list) {
             TextView tv=new TextView(getApplicationContext());
-            tv.setText(s);
+            tv.setText(s.toString());
             tvs.add(tv);
 
         }
