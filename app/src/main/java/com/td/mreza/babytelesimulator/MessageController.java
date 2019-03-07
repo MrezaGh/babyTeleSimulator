@@ -32,10 +32,13 @@ public class MessageController {
                 if (fromCache){
                     //todo : review and refactor
                     int[] numbers = storageManager.load(lastNumber);
-                    notificationCenter.data_loaded();// todo: this line should be added after Notification Center implementation is done
-                    for (int number : numbers) {
-                        cache.add(number);
+                    if (numbers != null) {
+                        for (int number : numbers) {
+                            cache.add(number);
+                        }
+                        notificationCenter.data_loaded();
                     }
+
                 }
                 else {
                     //todo : review code and refactor
@@ -46,7 +49,7 @@ public class MessageController {
                             cache.add(number);
                         }
                     }
-                    notificationCenter.data_loaded();// todo: this line should be added after Notification Center implementation is done
+                    notificationCenter.data_loaded();
                 }
                 Log.i("cache ", String.valueOf(cache));
             }

@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 
 public class ConnectionManager {
-    private int delay = 100;
+    private int delay = 5000;
 
 
 
