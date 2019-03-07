@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements Observer  {
             @Override
             public void onClick(View v) {
                 linearLayout.removeAllViews();
+                messageController.cache.clear();
             }
         });
 
