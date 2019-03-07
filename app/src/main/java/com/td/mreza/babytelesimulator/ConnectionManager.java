@@ -23,7 +23,8 @@ public class ConnectionManager {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Log.d("numbers: ", Arrays.toString(numbers));
+                Log.i("cloud thread ->", String.valueOf(Thread.currentThread().getId()));
+                Log.i("numbers: ", Arrays.toString(numbers));
             }
         };
         Thread cloud = new Thread(runnable);
@@ -33,7 +34,8 @@ public class ConnectionManager {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return numbers;
+        Log.i("connection thread ->", String.valueOf(Thread.currentThread().getId()));
+        return numbers.clone();
     }
 
 

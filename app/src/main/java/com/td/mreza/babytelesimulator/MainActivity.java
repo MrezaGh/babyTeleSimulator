@@ -2,6 +2,7 @@ package com.td.mreza.babytelesimulator;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -14,9 +15,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MessageController messageController = new MessageController();
 
-        messageController.fetch(false);
+
+        MessageController messageController = new MessageController(getBaseContext());
+
+        messageController.fetch(true);
 
         Button clearBtn = findViewById(R.id.clear_btn);//done!
         Button refreshBtn = findViewById(R.id.refresh_btn);//todo:
